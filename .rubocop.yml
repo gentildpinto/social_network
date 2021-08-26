@@ -8,16 +8,7 @@ AllCops:
     - 'db/schema.rb'
     - 'node_modules/**/*'
 
-Style/MixinUsage:
-  Enabled: false
-
-Style/FormatStringToken:
-  Enabled: false
-
-Layout/LineLength:
-  Enabled: false
-
-Metrics/BlockLength:
+Metrics/LineLength:
   Enabled: false
 
 Metrics/ParameterLists:
@@ -30,15 +21,6 @@ Metrics/ClassLength:
   Enabled: false
 
 Metrics/AbcSize:
-  Enabled: false
-
-Naming/VariableNumber:
-  Enabled: false
-
-ConstantDefinitionInBlock:
-  Enabled: false
-
-HashLikeCase:
   Enabled: false
 
 CyclomaticComplexity:
