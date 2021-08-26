@@ -1,9 +1,12 @@
 AllCops:
   Exclude:
+    - 'bin/*'
     - 'Gemfile'
     - 'vendor/**/*'
+    - 'config/**/*'
     - 'db/migrate/*'
     - 'db/schema.rb'
+    - 'node_modules/**/*'
 
 Style/MixinUsage:
   Enabled: false
@@ -39,4 +42,7 @@ HashLikeCase:
   Enabled: false
 
 CyclomaticComplexity:
+  Enabled: false
+
+Style/Documentation:
   Enabled: false
