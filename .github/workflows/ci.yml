@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ master, develop ]
+  pull_request:
+    branches: [ master, develop ]
+
+jobs:
+
+  rubocop:
+    name: rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libpq-dev
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+
+      - uses: actions/checkout@v2
+
+      - name: Install bundler and rubocop
+        run: |
+          gem install bundler --no-document
+          bundle config GITHUB__COM $GITHUB_ACCESS_TOKEN
+          bundle install --jobs 4 --retry 3 --with=test
+        env:
+          GITHUB_ACCESS_TOKEN: $
+
+      - name: Run rubocop checks
+        run: bundle exec rubocop -D -c .rubocop.yml
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.1
+
+      - name: Install Brakeman
+        run: |
+          gem install brakeman
+      - name: Run Brakeman
+        run: |
+          brakeman -f json > tmp/brakeman.json || exit 0
